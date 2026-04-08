@@ -21,8 +21,14 @@ class Settings(BaseSettings):
     
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:
+        if self.DATABASE_URL and self.DATABASE_URL != "sqlite:///./memostack.db":
+            if self.DATABASE_URL.startswith("postgres://"):
+                return self.DATABASE_URL.replace("postgres://", "postgresql://", 1)
+            return self.DATABASE_URL
+        
         if self.DATABASE_URL.startswith("sqlite"):
             return self.DATABASE_URL
+            
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
     
     model_config = SettingsConfigDict(env_file=".env")
