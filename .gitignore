@@ -1,0 +1,27 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Pytest
+.pytest_cache/
+test_output*.txt
+test_log.txt
+
+# Databases
+*.db
+*.sqlite3
+textmate.db
+
+# OS generated files
+.DS_Store
+Thumbs.db

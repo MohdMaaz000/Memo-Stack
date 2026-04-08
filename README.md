@@ -1,62 +1,83 @@
-# TextMate
-TextMate is a full-stack web application designed for personal book and note management. It allows users to securely authenticate, create, read, update, and delete (CRUD) their books and notes. The application provides a seamless and responsive user interface for easy navigation and efficient management.
+# MemoStack Backend
 
+MemoStack is a high-performance RESTful backend API designed for structured note-taking and collaborative book annotations. It utilizes clean architecture and FastAPI to securely authenticate, create, read, update, and delete (CRUD) books, notes, and peer comments.
 
 ## 🚀 Features
 
-User Authentication: Secure login and registration system. <br/> 
-Book Management: Add, update, delete, and organize personal books. <br/>
-Note Management: Create, edit, and delete notes. <br/>
-Responsive UI: Optimized for various screen sizes, including mobile and tablet devices. <br/>
-CRUD Operations: Complete functionality to manage books and notes efficiently. <br/>
+- **User Authentication**: Secure login and registration system using JWT (Access & Refresh tokens) and bcrypt.
+- **Book Management**: Add, update, delete, and organize personal books.
+- **Note Management**: Create, edit, and delete notes associated with books.
+- **Comment System**: Peer comments on notes.
+- **Clean Architecture**: Services layer separation for business logic.
+- **Performance & Security**: Rate limiting, global request logging, CORS configured, and PostgreSQL persistence.
 
 ## 🛠️ Tech Stack
-Node.js: Backend runtime environment. <br/>
-Express.js: Web framework for building the backend API. <br/>
-React.js: Frontend library for creating dynamic user interfaces. <br/>
-MongoDB: NoSQL database for storing user data, books, and notes. <br/>
 
-## Getting Started
+- **Python 3.10+**: Runtime environment.
+- **FastAPI**: High-performance web framework for building APIs.
+- **SQLAlchemy & Alembic**: ORM and Database Migrations.
+- **PostgreSQL / SQLite**: Support for both local SQLite development and production Postgres.
+- **Pydantic**: Data validation and serialization.
+- **PyTest**: Automated testing framework.
 
-1. Clone the repository:
+## 🚦 Getting Started
+
+### 1. Clone the repository
+
 ```bash
 git clone https://github.com/MohdMaaz000/Textmate.git
-```
-
-2. Navigate to the project directory:
-```bash
 cd Textmate
 ```
 
-3. Install dependencies:
-```bash
-# For backend
-cd server
-npm install
+### 2. Set up Virtual Environment and Install Dependencies
 
-# For frontend 
-cd client
-npm install
+```bash
+python -m venv venv
+
+# Activate on Windows:
+venv\Scripts\activate
+
+# Activate on Mac/Linux:
+# source venv/bin/activate
+
+pip install -r requirements.txt
 ```
 
-4. Start the development servers:
-```bash
-# Start backend server
-cd server
-npm start
+### 3. Environment Variables
 
-# Start frontend server
-cd client
-npm start
+Create a `.env` file in the root directory based on standard configuration:
+
+```ini
+PROJECT_NAME="MemoStack API"
+DATABASE_URL="sqlite:///./textmate.db" # Change to Postgres URI for production
+SECRET_KEY="replace-with-a-very-secure-key"
+ALGORITHM="HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+REFRESH_TOKEN_EXPIRE_DAYS=7
+BACKEND_CORS_ORIGINS=["http://localhost:3000"]
 ```
 
+### 4. Run Database Migrations
 
-## Screenshots 
+To create all necessary tables in your database:
 
+```bash
+alembic upgrade head
+```
 
-![Screenshot 2025-02-08 204542](https://github.com/user-attachments/assets/38f8f9c2-8d95-43ce-b5bd-da6bf831ec32)
+### 5. Start the Development Server
 
-![Screenshot 2025-02-08 204216](https://github.com/user-attachments/assets/89696ad6-00ca-4d94-8bfe-e2faeb8fb9dc)
+```bash
+uvicorn app.main:app --reload
+```
 
-![Screenshot 2025-02-08 204456](https://github.com/user-attachments/assets/782fdcca-8263-4eb3-9231-b51327807ea5)
+The API will be available at `http://localhost:8000`. 
+Interactive Swagger API documentation is automatically generated and accessible at `http://localhost:8000/docs`.
 
+## 🧪 Testing
+
+To run the automated tests using PyTest:
+
+```bash
+pytest
+```

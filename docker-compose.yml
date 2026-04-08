@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: textmate_user
+      POSTGRES_PASSWORD: securepassword123
+      POSTGRES_DB: textmate_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql
+      - POSTGRES_SERVER=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=textmate_user
+      - POSTGRES_PASSWORD=securepassword123
+      - POSTGRES_DB=textmate_db
+      - SECRET_KEY=your-super-secret-key
+      - ALGORITHM=HS256
+    depends_on:
+      - db
+    # Run alembic migrations before starting up the server
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers"
+
+volumes:
+  postgres_data:
