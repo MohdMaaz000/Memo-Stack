@@ -25,8 +25,8 @@ MemoStack is a high-performance RESTful backend API designed for structured note
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/MohdMaaz000/Textmate.git
-cd Textmate
+git clone https://github.com/MohdMaaz000/Memo-Stack.git
+cd Memo-Stack
 ```
 
 ### 2. Set up Virtual Environment and Install Dependencies
