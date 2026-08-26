@@ -1,4 +1,4 @@
-# MemoStack Backend
+# MemoStack
 
 MemoStack is a high-performance RESTful backend API designed for structured note-taking and collaborative book annotations. It utilizes clean architecture and FastAPI to securely authenticate, create, read, update, and delete (CRUD) books, notes, and peer comments.
 
